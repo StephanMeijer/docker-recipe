@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="docker-recipe",
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(),
     install_requires=[
         'pydantic~=1.10.8',
@@ -20,4 +20,9 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
     ],
+    entry_points={
+        'console_scripts': [
+            'docker-recipe=docker_recipe:main',  # map the docker-recipe command to a function
+        ],
+    },
 )
