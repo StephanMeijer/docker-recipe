@@ -24,7 +24,7 @@ def load_recipe(path: str) -> DockerRecipe:
 
 
 def render_file(path: str, recipe: DockerRecipe) -> str:
-    fsl = jinja2.FileSystemLoader('.')
+    fsl = jinja2.FileSystemLoader('..')
     env = jinja2.Environment(loader=fsl)
     tpl = env.get_template(path)
     output = tpl.render({"recipe": recipe})
