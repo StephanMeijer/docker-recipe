@@ -1,3 +1,4 @@
 dist/
 build/
 docker_recipe.egg-info/
+venv/

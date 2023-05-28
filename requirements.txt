@@ -1,3 +1,0 @@
-pydantic~=1.10.8
-PyYaml~=6.0
-Jinja2~=3.1.2
