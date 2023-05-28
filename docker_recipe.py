@@ -32,7 +32,11 @@ def render_file(path: str, recipe: DockerRecipe) -> str:
     return output if output.endswith("\n") else output + "\n"
 
 
-if __name__ == '__main__':
+def main():
     with open(".gitlab-ci.yml", 'w+') as f_gitlab_ci:
         f_gitlab_ci.write(render_file('.gitlab-ci.recipe.yml',
                                       load_recipe("docker-recipe.yml")))
+
+
+if __name__ == '__main__':
+    main()
