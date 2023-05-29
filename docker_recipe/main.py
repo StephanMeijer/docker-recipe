@@ -1,21 +1,11 @@
-import typing
-import argparse
 import os
 
 import jinja2
 import yaml
-import pydantic
 
-
-class DockerRecipeImage(pydantic.BaseModel):
-    name: str
-    Dockerfile: str
-    latest: bool = False
-    arguments: typing.Dict[str, str] = {}
-
-
-class DockerRecipe(pydantic.BaseModel):
-    images: typing.List[DockerRecipeImage]
+from docker_recipe.cli import parser
+from docker_recipe.data_structure import DockerRecipe
+from docker_recipe.filters import filter_basename, filter_dirname
 
 
 def load_recipe(path: str) -> DockerRecipe:
@@ -28,30 +18,12 @@ def load_recipe(path: str) -> DockerRecipe:
 def render_file(path: str, recipe: DockerRecipe) -> str:
     fsl = jinja2.FileSystemLoader(os.path.dirname(path))
     env = jinja2.Environment(loader=fsl)
+    env.filters['basename'] = filter_basename
+    env.filters['dirname'] = filter_dirname
     tpl = env.get_template(os.path.basename(path))
     output = tpl.render({"recipe": recipe})
 
     return output if output.endswith("\n") else output + "\n"
-
-
-parser = argparse.ArgumentParser(description="Docker Recipe File")
-parser.add_argument('-r',
-                    '--docker-recipe',
-                    default=os.path.join(os.getcwd(), 'docker-recipe.yml'),
-                    help='Path to the docker-recipe.yml file. ' +
-                         'Default is `docker-recipe.yml` in the current working directory.')
-
-parser.add_argument('-g',
-                    '--gitlab-ci-template',
-                    default=os.path.join(os.getcwd(), '.gitlab-ci.recipe.yml'),
-                    help='Path to the .gitlab-ci.recipe.yml file. ' +
-                         'Default is `.gitlab-ci.recipe.yml` in the current working directory.')
-
-parser.add_argument('-o',
-                    '--gitlab-ci-output-file',
-                    default=os.path.join(os.getcwd(), '.gitlab-ci.yml'),
-                    help='Path to the .gitlab-ci.yml file. ' +
-                         'Default is `.gitlab-ci.recipe.yml` in the current working directory.')
 
 
 def main():

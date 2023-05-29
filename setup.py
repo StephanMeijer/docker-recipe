@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="docker-recipe",
-    version="0.2.0",
+    version="0.3.0",
     packages=find_packages(),
     install_requires=[
         'pydantic~=1.10.8',
