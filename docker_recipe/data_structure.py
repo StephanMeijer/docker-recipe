@@ -7,6 +7,7 @@ class DockerRecipeImage(pydantic.BaseModel):
     Dockerfile: str
     latest: bool = False
     arguments: typing.Dict[str, str] = {}
+    depends_on: typing.List[str] = []
 
 
 class DockerRecipe(pydantic.BaseModel):
