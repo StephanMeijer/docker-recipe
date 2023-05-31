@@ -29,8 +29,8 @@ def render_file(path: str, recipe: DockerRecipe) -> str:
 def main():
     args = parser.parse_args()
 
-    with open(args.gitlab_ci_output_file, 'w+') as f_gitlab_ci:
-        f_gitlab_ci.write(render_file(args.gitlab_ci_template,
+    with open(args.output, 'w+') as f_gitlab_ci:
+        f_gitlab_ci.write(render_file(args.template,
                                       load_recipe(args.docker_recipe)))
 
 

@@ -8,14 +8,12 @@ parser.add_argument('-r',
                     help='Path to the docker-recipe.yml file. ' +
                          'Default is `docker-recipe.yml` in the current working directory.')
 
-parser.add_argument('-g',
-                    '--gitlab-ci-template',
-                    default=os.path.join(os.getcwd(), '.gitlab-ci.recipe.yml'),
-                    help='Path to the .gitlab-ci.recipe.yml file. ' +
-                         'Default is `.gitlab-ci.recipe.yml` in the current working directory.')
+parser.add_argument('-t',
+                    '--template',
+                    required=True,
+                    help='Path to the template file.')
 
 parser.add_argument('-o',
-                    '--gitlab-ci-output-file',
-                    default=os.path.join(os.getcwd(), '.gitlab-ci.yml'),
-                    help='Path to the .gitlab-ci.yml file. ' +
-                         'Default is `.gitlab-ci.recipe.yml` in the current working directory.')
+                    '--output',
+                    required=True,
+                    help='Path to the output file.')
